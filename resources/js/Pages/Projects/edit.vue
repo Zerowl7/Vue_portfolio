@@ -24,12 +24,12 @@
                         focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
 
                             <option 
-                            v-for="skill in skills" 
-                            :key="skill.id" 
-                            :value="skill.id">{{ skill.name }}
+                            v-for="mymy in skills" 
+                            :key="mymy.id" 
+                            :value="mymy.id">{{ mymy.name }}
                         </option>
+                        <InputError class="mt-2" :message="$page.props.errors.skill_id" />
                         </select>
-                        <InputError class="mt-2" :message="form.errors.skill_id" />
                     </div>
 
 
@@ -39,7 +39,7 @@
                         <InputLabel for="name" value="Name" />
                         <TextInput id="name" type="text" class="mt-1 block w-full" v-model="form.name" required
                             autofocus autocomplete="name" />
-                        <InputError class="mt-2" :message="form.errors.name" />
+                        <InputError class="mt-2" :message="$page.props.errors.name" />
                     </div>
 
                     <!-- Url -->
@@ -47,7 +47,7 @@
                         <InputLabel for="project_url" value="URL" />
                         <TextInput id="project_url" type="text" class="mt-1 block w-full" v-model="form.project_url" required
                             autocomplete="project_url" />
-                        <InputError class="mt-2" :message="form.errors.project_url" />
+                        <InputError class="mt-2" :message="$page.props.errors.project_url" />
                     </div>
 
                     <!-- Image -->
@@ -55,16 +55,15 @@
                         <InputLabel for="image" value="Image" />
                         <TextInput id="image" type="file" class="mt-1 block w-full" @input="form.image = $event.target.files[0]"
                             />
-                        <InputError class="mt-2" :message="form.errors.image" />
+                        <InputError class="mt-2" :message="$page.props.errors.image" />
                     </div>
 
 
 
                     <div class="flex items-center justify-end mt-4">
 
-                        <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }"
-                            :disabled="form.processing">
-                            Store
+                        <PrimaryButton class="ml-4" >
+                            Update
                         </PrimaryButton>
                     </div>
                 </form>
@@ -85,21 +84,29 @@ import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
+import { Inertia } from "@inertiajs/inertia";
 
-defineProps({
+const props = defineProps({
   skills: Array,
+  project: Object,
 });
 
 const form = useForm({
-    name: '',
+    name: props.project?.name,
     image: null,
-    skill_id: "",
-    project_url:""
+    skill_id: props.project?.skill_id,
+    project_url: props.project?.project_url,
 
 });
 
 const submit = () => {
-    form.post(route('projects.store'));
+    Inertia.post(`/projects/${props.project.id}`,{
+    _method: "put",
+    name: form.name,
+    image: form.image,
+    skill_id: form.skill_id,
+    project_url: form.project_url
+});
 };
 
 </script>

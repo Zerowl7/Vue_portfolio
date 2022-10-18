@@ -15,6 +15,8 @@
                     <Link href="/skills/create"
                         class="px-4 py-2 bg-indigo-500 hover:bg-indigo-500 text-white rounded-md">New Skils</Link>
                 </div>
+
+                
                 <div class="overflow-x-auto relative ">
                     <table class="mt-6 w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -49,8 +51,10 @@
 
                                 </td>
                                 <td class="py-4 px-6">
-                                    Edit/Delete
+                                    <Link :href="route('skills.edit', skill.id)"  class="font-medium text-blue-500 hover:text-blue-700 mr-2">Edit</Link>
+                                    <Link :href="route('skills.destroy', skill.id)" method="delete" as="button" type="button" class="font-medium text-red-500 hover:text-red-700 mr-2">Delete</Link>
                                 </td>
+                                
                             </tr>
                             
                         </tbody>
