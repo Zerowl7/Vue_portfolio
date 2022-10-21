@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\ProjectsController;
+use App\Http\Controllers\WelcomeController;
 
 
 /*
@@ -18,15 +20,8 @@ use App\Http\Controllers\ProjectsController;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
-
+Route::get('/', [WelcomeController::class, 'welcome'])->name('welcome');
+Route::post('/contact', ContactController::class)->name('contact');
 
 // Middleweare
 Route::middleware(['auth', 'verified'])->group(function () {

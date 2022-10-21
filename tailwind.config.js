@@ -25,18 +25,20 @@ module.exports = {
         },
         extend:{
             colors: {
+
+
                 "light-primary": "#EDEDED",
                 "light-secondary": "#D8D9CF",
-                "light-tail-100": "#FF8787",
-                "light-tail-500": "#E26868",
+                "light-tail-100": "#2DD4BF",
+                "light-tail-500": "#302709",
 
                 "dark-primary": "#000000",
                 "dark-secondary": "#150050",
                 "dark-navy-100": "#610094",
                 "dark-navy-500": "#3F0071",
                 accent:{
-                    DEFAULT: "#ac6b34",
-                    hover: "#925a2b",
+                    DEFAULT: "#998643",
+                    hover: "#97CCC2",
                 },
                 paragraph: "#878e99",
                 blue: colors.blue,
